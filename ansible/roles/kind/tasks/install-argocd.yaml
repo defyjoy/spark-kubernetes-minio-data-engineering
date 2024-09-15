@@ -13,7 +13,7 @@
   until: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
 
 - name: Install ArgoCD
-  when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
+  # when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
   ansible.builtin.shell:
     # cmd: kind create cluster --name spark-kubernetes-minio-data-engineering
     cmd: kustomize build k8s/manifests/argocd | kubectl apply -f -

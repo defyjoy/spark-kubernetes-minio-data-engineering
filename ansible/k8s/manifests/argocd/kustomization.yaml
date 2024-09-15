@@ -7,7 +7,7 @@ resources:
 # - argocd-dex-external-secrets.yaml
 - namespace.yaml
 - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.12.3
-# - ingress.yaml
+- ingress.yaml
 
 
 patches:
