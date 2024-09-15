@@ -1,4 +1,32 @@
+- name: Install ArgoCD CLI
+  community.general.homebrew:
+    name: argocd
+    state: present
+
+- name: Wait until ArgoCD is up
+  kubernetes.core.k8s_info:
+    # kubeconfig: "{{ kubeconfig }}"
+    api_version: v1
+    kind: Pod
+    namespace: argocd
+  register: pod_list
+  until: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
+
 - name: Install ArgoCD
+  when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
   ansible.builtin.shell:
     # cmd: kind create cluster --name spark-kubernetes-minio-data-engineering
-    cmd: kustomize build k8s/apps/argocd | kubectl apply -f -
+    cmd: kustomize build k8s/manifests/argocd | kubectl apply -f -
+
+# - name: ArgoCD login
+#   ansible.builtin.shell:
+#     cmd
+
+- name: Install ArgoCD Applications
+  ansible.builtin.shell:
+    cmd: kustomize build k8s/apps/ | kubectl apply -f -
+
+- name: ArgoCD Password Reset
+  ansible.builtin.shell: scripts/argocd.sh
+
+
