@@ -1,0 +1,29 @@
+# tasks file for talos
+# - name: Tap a Homebrew repository, state present
+#   community.general.homebrew_tap:
+#     name: siderolabs/tap
+
+- name: Install kind
+  community.general.homebrew:
+    name: kind
+    state: latest
+
+- name: Get infos on container
+  docker_container_info:
+    name: spark-kubernetes-minio-data-engineering-control-plane
+  register: result
+
+- name: Does container exist?
+  debug:
+    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+- name: Create Default kind cluster
+  when: result.exists != true
+  ansible.builtin.shell:
+    # cmd: kind create cluster --name spark-kubernetes-minio-data-engineering
+    cmd: kind create cluster --name spark-kubernetes-minio-data-engineering --config kind-config.yaml
+
+
+- name: Install ArgoCD
+  ansible.builtin.import_tasks:
+    file: install-argocd.yaml

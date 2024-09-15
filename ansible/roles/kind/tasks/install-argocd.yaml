@@ -1,0 +1,4 @@
+- name: Install ArgoCD
+  ansible.builtin.shell:
+    # cmd: kind create cluster --name spark-kubernetes-minio-data-engineering
+    cmd: kustomize build k8s/apps/argocd | kubectl apply -f -

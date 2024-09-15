@@ -1,0 +1,7 @@
+- name: Init kind cluster
+  hosts: localhost
+  become: yes
+  roles:
+  - role: kind
+    become: true
+    become_user: jroychowdhury

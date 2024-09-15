@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+
+resources:
+# # - argocd-notification-secret.yaml
+# - argocd-dex-external-secrets.yaml
+- namespace.yaml
+- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.12.3
+# - ingress.yaml
+
+
+# patches:
+# - path: patches/patch-argocd-cm.yaml
+#   target:
+#     name: argocd-cm
+# - path: patches/patch-argocd-sso-dex-secret.yaml
+#   target:
+#     name: dex-secret
+# - path: patches/patch-argocd-rbac-cm.yaml
+#   target:
+#     name: argocd-rbac-cm
+
+# - path: patches/patch-argocd-notification-cm.yaml
+#   target:
+#     name: argocd-notifications-cm
