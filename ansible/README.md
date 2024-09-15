@@ -7,3 +7,11 @@ ansible-galaxy collection install community.general
 ansible-galaxy collection install kubernetes.core
 ```
 
+## INSTALLATION
+
+- INSTALLS KIND CLUSTER
+- INSTALLS ARGOCD INTO KIND CLUSTER
+
+```
+ansible-playbook kind.yaml --ask-become-pass
+```
