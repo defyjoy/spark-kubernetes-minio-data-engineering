@@ -10,10 +10,10 @@ resources:
 # - ingress.yaml
 
 
-# patches:
-# - path: patches/patch-argocd-cm.yaml
-#   target:
-#     name: argocd-cm
+patches:
+- path: patches/patch-argocd-cm.yaml
+  target:
+    name: argocd-cm
 # - path: patches/patch-argocd-sso-dex-secret.yaml
 #   target:
 #     name: dex-secret
