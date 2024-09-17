@@ -1,0 +1,9 @@
+## Official doc - https://strimzi.io/quickstarts/
+# Downloaded from - https://strimzi.io/install/latest?namespace=kafka
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: strimzi-kafka
+
+resources:
+- kafka-operator.yaml
