@@ -25,8 +25,8 @@ spec:
             name: argocd-server
             port:
               number: 443
-              # host: argocd.dev.aviatize.com
-  # tls:
-  # - hosts:
-  #   - argocd.dev.aviatize.com
-  #   secretName: argocd-server-tls
+              host: 172.19.0.7.nip.io
+  tls:
+  - hosts:
+    - 172.19.0.7.nip.io
+    secretName: argocd-server-tls
