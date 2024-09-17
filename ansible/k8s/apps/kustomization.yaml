@@ -5,3 +5,4 @@ namespace: argocd
 
 resources:
 - ingress-nginx.yaml
+- strimzi-kafka.yaml
