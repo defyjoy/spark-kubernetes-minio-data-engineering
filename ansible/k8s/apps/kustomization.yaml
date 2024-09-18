@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: argocd
 
 resources:
+- argocd.yaml
 - ingress-nginx.yaml
 - strimzi-kafka.yaml
