@@ -7,3 +7,4 @@ resources:
 - argocd.yaml
 - ingress-nginx.yaml
 - strimzi-kafka.yaml
+- cert-manager.yaml
