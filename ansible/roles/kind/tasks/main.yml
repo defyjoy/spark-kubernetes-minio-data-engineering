@@ -19,11 +19,9 @@
 
 - name: Create Default kind cluster
   when: result.exists != true
-  ansible.builtin.shell:
-    # cmd: kind create cluster --name spark-kubernetes-minio-data-engineering
-    cmd: kind create cluster --name spark-kubernetes-minio-data-engineering --config kind-config.yaml
+  ansible.builtin.command: kind create cluster --name spark-kubernetes-minio-data-engineering --config kind-config.yaml
 
 
 - name: Install ArgoCD
   ansible.builtin.import_tasks:
-    file: install-argocd.yaml
+    file: argocd.yaml

@@ -3,7 +3,7 @@
     name: argocd
     state: present
 
-- name: Wait until ArgoCD is up
+- name: Check If ArgoCD is deployed
   kubernetes.core.k8s_info:
     # kubeconfig: "{{ kubeconfig }}"
     api_version: v1
@@ -11,22 +11,17 @@
     namespace: argocd
   register: pod_list
   until: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
+  ignore_errors: true
 
 - name: Install ArgoCD
-  # when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
+  when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
   ansible.builtin.shell:
-    # cmd: kind create cluster --name spark-kubernetes-minio-data-engineering
     cmd: kustomize build k8s/manifests/argocd | kubectl apply -f -
-
-# - name: ArgoCD login
-#   ansible.builtin.shell:
-#     cmd
-
-- name: Install ArgoCD Applications
-  ansible.builtin.shell:
-    cmd: kustomize build k8s/apps/ | kubectl apply -f -
 
 - name: ArgoCD Password Reset
   ansible.builtin.shell: scripts/argocd.sh
+  ignore_errors: true
 
-
+- name: Install kustomize applications
+  ansible.builtin.import_tasks:
+    file: kustomize.yaml
