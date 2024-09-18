@@ -8,3 +8,4 @@ resources:
 - ingress-nginx.yaml
 - strimzi-kafka.yaml
 - cert-manager.yaml
+- spark.yaml

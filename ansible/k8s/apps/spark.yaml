@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: strimzi-kafka
+  name: spark
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
@@ -10,10 +10,10 @@ spec:
   source:
     repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
     targetRevision: main
-    path: ansible/k8s/manifests/strimzi-kafka # bootstrap/overlays/dev
+    path: ansible/k8s/manifests/spark # bootstrap/overlays/dev
   destination:
     server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
-    namespace: strimzi-kafka
+    namespace: spark
   syncPolicy:
     retry:
       limit: 3 # number of failed sync attempt retries; unlimited number of attempts if less than 0
@@ -24,7 +24,6 @@ spec:
     syncOptions:
     - CreateNamespace=true
     - FailOnSharedResource=true
-    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
