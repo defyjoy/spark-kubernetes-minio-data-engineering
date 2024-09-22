@@ -1,0 +1,42 @@
+
+- name: Get infos on kind container
+  docker_container_info:
+    name: spark-kubernetes-minio-data-engineering-control-plane
+  register: result
+
+- name: Does kind cluster exist?
+  debug:
+    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
+
+- name: Get infos on network named {{ KIND_NETWORK }} in docker networks
+  docker_network_info:
+    name: "{{ KIND_NETWORK }}"
+  register: kind_network
+
+- name: Does docker network named {{ KIND_NETWORK }} exist?
+  debug:
+    msg: "The network {{ 'exists' if kind_network.exists else 'does not exist' }}"
+
+- name: Create docker network - {{ KIND_NETWORK }}
+  when: kind_network.exists != true
+  environment:
+    KIND_EXPERIMENTAL_DOCKER_NETWORK: "{{ KIND_NETWORK }}"
+  ansible.builtin.shell: scripts/docker.sh
+
+- name: Create Default kind cluster
+  when: result.exists != true
+  ansible.builtin.command: kind create cluster --name spark-kubernetes-minio-data-engineering --config kind-config.yaml
+  environment:
+    KIND_EXPERIMENTAL_DOCKER_NETWORK: "{{ KIND_NETWORK }}"
+
+- name: Get infos on container
+  docker_container_info:
+    name: spark-kubernetes-minio-data-engineering-control-plane
+  register: kind_spark_cluster_controlplane
+
+- name: Print network information about spark container
+  debug:
+    msg: "'{{ kind_spark_cluster_controlplane.container.NetworkSettings.Networks.kind_network.IPAddress }} Kind cluster Control Plane IP"
+
+- set_fact:
+    kind_ip_address: "{{ kind_spark_cluster_controlplane.container.NetworkSettings.Networks.kind_network.IPAddress }}"

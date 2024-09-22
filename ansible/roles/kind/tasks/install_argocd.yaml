@@ -1,0 +1,66 @@
+
+
+# - name: Set Ingress IP {{ kind_ip_address }}
+#   ansible.builtin.shell: |
+#     yq e -i '.spec.rules[0].host = "{{kind_ip_address}}.nip.io"' k8s/manifests/argocd/ingress.yaml
+#     yq -i '.spec.tls[0].hosts = ["{{kind_ip_address}}.nip.io"]' k8s/manifests/argocd/ingress.yaml
+
+- name: Check if ArgoCD Exists
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    namespace: argocd
+    wait: yes
+    wait_sleep: 10
+    wait_timeout: 10
+  register: pod_list
+  ignore_errors: true
+
+
+- name: Install ArgoCD
+  when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
+  ansible.builtin.shell:
+    cmd: kustomize build k8s/manifests/argocd | kubectl apply -f -
+
+- name: Check If ArgoCD is deployed
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    namespace: argocd
+    wait: yes
+    wait_sleep: 10
+    wait_timeout: 300
+  register: pod_list
+
+
+# - name: Wait until argocd is up
+#   kubernetes.core.k8s_info:
+#     api_version: v1
+#     kind: Pod
+#     namespace: argocd
+#     wait_sleep: 10
+#     wait_timeout: 360
+#   register: pod_list
+#   until: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
+
+# - name: Reload ArgoCD repo server
+#   when: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
+#   ansible.builtin.shell: kubectl scale -n argocd deployment/argocd-server --replicas=0 && kubectl scale -n argocd deployment/argocd-server --replicas=1
+
+- name: Check ArgoCD Login
+  ansible.builtin.shell: argocd login --port-forward --insecure --username admin --password {{ ARGOCD_NEW_PASSWORD }}
+  register: argocd_login
+  ignore_errors: true
+
+- name: Login to ArgoCD Succeeded?
+  debug:
+    msg: "ArgoCD {{ 'Login Successful' if argocd_login.failed == false else 'Login Failed' }}"
+
+- name: ArgoCD Password Reset
+  when: argocd_login.failed
+  ansible.builtin.shell: scripts/argocd.sh
+  environment:
+    NEW_PASSWORD: "{{ ARGOCD_NEW_PASSWORD }}"
+  ignore_errors: true
+
+

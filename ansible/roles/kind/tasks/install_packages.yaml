@@ -1,0 +1,24 @@
+# - name: Install kind
+#   community.general.homebrew:
+#     name: kind
+#     state: latest
+
+# - name: Install ArgoCD CLI
+#   community.general.homebrew:
+#     name: argocd
+#     state: present
+
+# - name: Install yq
+#   community.general.homebrew:
+#     name: yq
+#     state: latest
+
+
+
+- name: Install packages
+  homebrew:
+    name:
+    - yq
+    - kind
+    - argocd
+    state: latest

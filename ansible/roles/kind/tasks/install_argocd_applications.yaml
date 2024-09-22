@@ -1,0 +1,17 @@
+- name: configure kubeproxy configmap
+  ansible.builtin.shell: |
+    kubectl get configmap kube-proxy -n kube-system -o yaml | \
+    sed -e "s/strictARP: false/strictARP: true/" | \
+    kubectl apply -f - -n kube-system
+  register: kube_proxy
+
+- name: Check kube proxy
+  debug:
+    msg: "ArgoCD {{ 'Kube proxy configured successfully' if kube_proxy.failed == false else 'Kube proxy configuration failed' }}"
+    # msg: "{{ kube_proxy.failed }}"
+
+
+- name: Install ArgoCD Applications
+  ansible.builtin.shell: kustomize build k8s/apps/ | kubectl apply -f -
+  # register: apps_installation # <- Registers the command output.
+  # changed_when: apps_installation.rc != 0 # <- Uses the return code to define when the task has changed.

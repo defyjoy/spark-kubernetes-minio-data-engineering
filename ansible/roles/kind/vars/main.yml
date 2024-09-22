@@ -1,2 +1,3 @@
----
 # vars file for kind
+KIND_NETWORK: kind_network
+ARGOCD_NEW_PASSWORD: Password@123

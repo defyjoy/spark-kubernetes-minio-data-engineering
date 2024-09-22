@@ -1,0 +1,22 @@
+- name: Get an existing Service object
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Service
+    name: ingress-nginx-controller
+    namespace: ingress-nginx
+  register: ingress_nginx
+
+- name: Print network information about spark container
+  debug:
+    # msg: "'{{ kind_spark_cluster_controlplane.container.NetworkSettings.Networks.kind_network.IPAddress }} Kind cluster Control Plane IP"
+    msg: "'{{ ingress_nginx.resources[0].status.loadBalancer.ingress[0].ip }}' is the load balancer ip"
+
+
+- set_fact:
+    ingress_loadbalancer_ip_address: "{{ ingress_nginx.resources[0].status.loadBalancer.ingress[0].ip }}"
+
+
+- name: Set Load balancer Ingress to IP - {{ ingress_loadbalancer_ip_address }}
+  ansible.builtin.shell: |
+    yq e -i '.spec.rules[0].host = "{{ingress_loadbalancer_ip_address}}.nip.io"' k8s/manifests/argocd/ingress.yaml
+    yq -i '.spec.tls[0].hosts = ["{{ingress_loadbalancer_ip_address}}.nip.io"]' k8s/manifests/argocd/ingress.yaml

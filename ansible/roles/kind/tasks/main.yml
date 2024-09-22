@@ -3,25 +3,22 @@
 #   community.general.homebrew_tap:
 #     name: siderolabs/tap
 
-- name: Install kind
-  community.general.homebrew:
-    name: kind
-    state: latest
-
-- name: Get infos on container
-  docker_container_info:
-    name: spark-kubernetes-minio-data-engineering-control-plane
-  register: result
-
-- name: Does container exist?
-  debug:
-    msg: "The container {{ 'exists' if result.exists else 'does not exist' }}"
-
-- name: Create Default kind cluster
-  when: result.exists != true
-  ansible.builtin.command: kind create cluster --name spark-kubernetes-minio-data-engineering --config kind-config.yaml
-
-
-- name: Install ArgoCD
+- name: Install Packages
   ansible.builtin.import_tasks:
-    file: argocd.yaml
+    file: install_packages.yaml
+
+- name: Install kind cluster
+  ansible.builtin.import_tasks:
+    file: install_kind.yaml
+
+- name: Configure ArgoCD
+  ansible.builtin.import_tasks:
+    file: install_argocd.yaml
+
+- name: Install ArgoCD Applications
+  ansible.builtin.import_tasks:
+    file: install_argocd_applications.yaml
+
+- name: Configure Load Balancer
+  ansible.builtin.import_tasks:
+    file: loadbalancer_config.yaml

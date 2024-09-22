@@ -1,8 +1,12 @@
 - name: Init kind cluster
   hosts: localhost
   become: yes
+
   roles:
   - role: kind
     become: true
-    become_user: joydeep
+    become_user: jroychowdhury
+
+  environment:
+    KIND_EXPERIMENTAL_DOCKER_NETWORK: kind-network" # <- Sets an environment variable with the shell module.
 
