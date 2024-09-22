@@ -6,4 +6,4 @@ metadata:
 spec:
   ipAddressPools:
   - default-address-pool
-  aggregationLength: 24
+  aggregationLength: 30
