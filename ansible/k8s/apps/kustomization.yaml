@@ -9,3 +9,4 @@ resources:
 - strimzi-kafka.yaml
 - cert-manager.yaml
 - spark.yaml
+- metallb.yaml
