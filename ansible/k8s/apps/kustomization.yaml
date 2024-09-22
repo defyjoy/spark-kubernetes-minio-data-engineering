@@ -10,3 +10,4 @@ resources:
 - cert-manager.yaml
 - spark.yaml
 - metallb.yaml
+- keycloak.yaml

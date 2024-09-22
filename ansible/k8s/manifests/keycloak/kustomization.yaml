@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+- name: keycloak
+  includeCRDs: true
+  repo: https://charts.bitnami.com/bitnami
+  version: v25.0.6
+  releaseName: keycloak
+  namespace: keycloak
+  # valuesFile: keycloak.values.yaml
