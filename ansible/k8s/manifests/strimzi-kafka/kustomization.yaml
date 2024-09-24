@@ -10,9 +10,9 @@ namespace: strimzi-kafka
 
 
 helmCharts:
-- name: kafka-system
+- name: strimzi-kafka-operator
   includeCRDs: true
   repo: https://strimzi.io/charts/
   version: v0.43.0
-  releaseName: kafka-system
+  releaseName: strimzi-kafka-operator
   namespace: kafka-system
