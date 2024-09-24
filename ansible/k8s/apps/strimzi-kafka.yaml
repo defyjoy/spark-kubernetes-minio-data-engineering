@@ -13,7 +13,7 @@ spec:
     path: ansible/k8s/manifests/strimzi-kafka # bootstrap/overlays/dev
   destination:
     server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
-    namespace: strimzi-kafka
+    namespace: kafka-system
   syncPolicy:
     retry:
       limit: 3 # number of failed sync attempt retries; unlimited number of attempts if less than 0
