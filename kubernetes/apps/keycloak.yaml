@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
     targetRevision: main
-    path: ansible/k8s/manifests/keycloak # bootstrap/overlays/dev
+    path: kubernetes/manifests/keycloak # bootstrap/overlays/dev
   destination:
     server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
     namespace: keycloak

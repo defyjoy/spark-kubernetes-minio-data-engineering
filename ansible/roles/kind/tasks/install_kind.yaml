@@ -29,6 +29,9 @@
   environment:
     KIND_EXPERIMENTAL_DOCKER_NETWORK: "{{ KIND_NETWORK }}"
 
+- name: Change cluster
+  ansible.builtin.shell: kubectx kind-spark-kubernetes-minio-data-engineering
+
 - name: Get infos on container
   docker_container_info:
     name: spark-kubernetes-minio-data-engineering-control-plane

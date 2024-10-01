@@ -21,4 +21,5 @@
     - yq
     - kind
     - argocd
+    - kubectx
     state: latest
