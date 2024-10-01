@@ -18,5 +18,5 @@
 
 - name: Set Load balancer Ingress to IP - {{ ingress_loadbalancer_ip_address }}
   ansible.builtin.shell: |
-    yq e -i '.spec.rules[0].host = "{{ingress_loadbalancer_ip_address}}.nip.io"' k8s/manifests/argocd/ingress.yaml
-    yq -i '.spec.tls[0].hosts = ["{{ingress_loadbalancer_ip_address}}.nip.io"]' k8s/manifests/argocd/ingress.yaml
+    yq e -i '.spec.rules[0].host = "{{ingress_loadbalancer_ip_address}}.nip.io"' manifests/argocd/ingress.yaml
+    yq -i '.spec.tls[0].hosts = ["{{ingress_loadbalancer_ip_address}}.nip.io"]' manifests/argocd/ingress.yaml

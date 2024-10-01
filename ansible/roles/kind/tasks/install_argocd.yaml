@@ -20,7 +20,7 @@
 - name: Install ArgoCD
   when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
   ansible.builtin.shell:
-    cmd: kustomize build k8s/manifests/argocd | kubectl apply -f -
+    cmd: kustomize build manifests/argocd | kubectl apply -f -
 
 - name: Check If ArgoCD is deployed
   kubernetes.core.k8s_info:

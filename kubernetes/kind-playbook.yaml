@@ -3,7 +3,7 @@
   become: yes
 
   roles:
-  - role: kind
+  - role: ansible/roles/kind 
     become: true
     become_user: jroychowdhury
 

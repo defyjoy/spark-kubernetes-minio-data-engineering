@@ -13,5 +13,5 @@ ansible-galaxy collection install kubernetes.core
 - INSTALLS ARGOCD INTO KIND CLUSTER
 
 ```
-ansible-playbook kind.yaml --ask-become-pass
+ansible-playbook kubernetes/kind-playbook.yaml --ask-become-pass
 ```

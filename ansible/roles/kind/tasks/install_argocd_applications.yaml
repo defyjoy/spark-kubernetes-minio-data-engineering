@@ -12,6 +12,6 @@
 
 
 - name: Install ArgoCD Applications
-  ansible.builtin.shell: kustomize build k8s/apps/ | kubectl apply -f -
+  ansible.builtin.shell: kustomize build apps/ | kubectl apply -f -
   # register: apps_installation # <- Registers the command output.
   # changed_when: apps_installation.rc != 0 # <- Uses the return code to define when the task has changed.
