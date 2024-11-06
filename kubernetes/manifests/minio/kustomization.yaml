@@ -9,3 +9,4 @@ helmCharts:
   version: v5.3.0
   releaseName: minio
   namespace: minio
+  valuesFile: minio.values.yaml
