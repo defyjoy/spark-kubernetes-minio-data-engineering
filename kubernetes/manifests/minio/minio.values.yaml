@@ -1,2 +1,7 @@
 rootUser: "admin"
 rootPassword: "minio@123"
+
+
+resources:
+  requests:
+    memory: 1Gi
