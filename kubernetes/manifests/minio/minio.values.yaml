@@ -1,3 +1,2 @@
-console:
-  image:
-    repository: minio/minio
+rootUser: "admin"
+rootPassword: "minio@123"
