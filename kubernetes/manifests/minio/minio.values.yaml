@@ -1,6 +1,7 @@
 rootUser: "admin"
 rootPassword: "minio@123"
 
+replicas: 3
 
 resources:
   requests:
