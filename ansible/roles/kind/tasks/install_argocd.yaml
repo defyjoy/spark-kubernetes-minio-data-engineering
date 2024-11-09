@@ -1,10 +1,5 @@
 
-
-# - name: Set Ingress IP {{ kind_ip_address }}
-#   ansible.builtin.shell: |
-#     yq e -i '.spec.rules[0].host = "{{kind_ip_address}}.nip.io"' k8s/manifests/argocd/ingress.yaml
-#     yq -i '.spec.tls[0].hosts = ["{{kind_ip_address}}.nip.io"]' k8s/manifests/argocd/ingress.yaml
-
+## CHECK IF ARGOCD EXISTS OR NOT AND REGISTER INTO OUTPUT FOR pod_list
 - name: Check if ArgoCD Exists
   kubernetes.core.k8s_info:
     api_version: v1
@@ -16,12 +11,13 @@
   register: pod_list
   ignore_errors: true
 
-
+## INSTAL ARGOCD WHEN ARGOCD DOES NOT EXIST OR IS NOT RUNNING
 - name: Install ArgoCD
   when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
   ansible.builtin.shell:
     cmd: kustomize build manifests/argocd | kubectl apply -f -
 
+## CHECK IF ARGOCD IS DEPLOYED OR NOT AND REGISTER INTO OUTPUT FOR pod_list
 - name: Check If ArgoCD is deployed
   kubernetes.core.k8s_info:
     api_version: v1
@@ -47,15 +43,18 @@
 #   when: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
 #   ansible.builtin.shell: kubectl scale -n argocd deployment/argocd-server --replicas=0 && kubectl scale -n argocd deployment/argocd-server --replicas=1
 
+## CHECK IF ARGOCD LOGIN IS SUCCESSFUL. IF FAILS THEN IGNORE ERROR
 - name: Check ArgoCD Login
   ansible.builtin.shell: argocd login --port-forward --insecure --username admin --password {{ ARGOCD_NEW_PASSWORD }}
   register: argocd_login
   ignore_errors: true
 
+## DEBUG INFO ON ARGOCD LOGIN IF SUCCESSFUL
 - name: Login to ArgoCD Succeeded?
   debug:
     msg: "ArgoCD {{ 'Login Successful' if argocd_login.failed == false else 'Login Failed' }}"
 
+## ARGOCD PASSWORD RESET USING SHELL SCRIPT scripts/argocd.sh
 - name: ArgoCD Password Reset
   when: argocd_login.failed
   ansible.builtin.shell: scripts/argocd.sh

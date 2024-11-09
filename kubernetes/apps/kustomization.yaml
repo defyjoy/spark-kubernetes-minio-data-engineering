@@ -11,5 +11,5 @@ resources:
 - spark.yaml
 - metallb.yaml
 - minio.yaml
-
+- postgresql.yaml
 - keycloak.yaml

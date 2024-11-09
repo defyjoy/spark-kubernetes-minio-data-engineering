@@ -1,3 +1,4 @@
+## CONFIGURE KUBE PROXY FOR ARGOCD CONFIGURATION
 - name: configure kubeproxy configmap
   ansible.builtin.shell: |
     kubectl get configmap kube-proxy -n kube-system -o yaml | \
@@ -5,13 +6,18 @@
     kubectl apply -f - -n kube-system
   register: kube_proxy
 
+## CHECK IF KUBE PROXY CONFIGURED SUCCESSFULLY
 - name: Check kube proxy
   debug:
     msg: "ArgoCD {{ 'Kube proxy configured successfully' if kube_proxy.failed == false else 'Kube proxy configuration failed' }}"
     # msg: "{{ kube_proxy.failed }}"
 
-
-- name: Install ArgoCD Applications
-  ansible.builtin.shell: kustomize build apps/ | kubectl apply -f -
+## INSTALL ARGOCD APPLICATIONS FROM KUSTOMIZE BUILD COMMAND USING kubernetes/apps DIRECTORY
+# - name: Install ArgoCD Applications
+#   ansible.builtin.shell: kustomize build apps/ | kubectl apply -f -
   # register: apps_installation # <- Registers the command output.
   # changed_when: apps_installation.rc != 0 # <- Uses the return code to define when the task has changed.
+
+## BOOTSTRAP ARGOCD APPLICATIONS
+- name: Bootstrap ArgoCD
+  ansible.builtin.shell: kubectl apply -f bootstrap/ # https://github.com/argoproj/argo-cd/releases/latest/download/install.yaml
