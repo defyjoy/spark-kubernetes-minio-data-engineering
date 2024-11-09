@@ -1,5 +1,39 @@
+## CREATE NGINX INGRESS NAMESPACE
+- name: Create a ingress-nginx namespace
+  kubernetes.core.k8s:
+    name: ingress-nginx
+    api_version: v1
+    kind: Namespace
+    state: present
 
-- name: Get an existing Service object
+## INSTALL METALLB TO PROVIDER LOAD BALANCER IP
+- name: Install Metallb
+  ansible.builtin.shell: kustomize build manifests/metallb | kubectl apply -f -
+
+## ADD NGINX INGRESS REPOSITORY  
+- name: Add helm repo
+  kubernetes.core.helm_repository:
+    name: ingress-nginx
+    repo_url: "{{ nginx_ingress_helm_chart_url }}" ## Look in vars folder
+
+- name: Install Nginx Chart
+  kubernetes.core.helm:
+    name: ingress-nginx
+    namespace: ingress-nginx
+    chart_ref: ingress-nginx/ingress-nginx
+
+- name: Check if Ingress-nginx Exists
+  kubernetes.core.k8s_info:
+    api_version: v1
+    kind: Pod
+    namespace: ingress-nginx
+    wait: yes
+    wait_sleep: 10
+    wait_timeout: 20
+  register: pod_list
+  # ignore_errors: true
+
+- name: Get an ingress nginx Service object
   kubernetes.core.k8s_info:
     api_version: v1
     kind: Service
@@ -7,15 +41,17 @@
     namespace: ingress-nginx
   register: ingress_nginx
 
-- name: Print network information about spark container
+- name: DEBUG INGRESS NGINX
+  debug:
+    msg: "{{ ingress_nginx.resources }}"
+
+- name: Print ingress nginx ip
   debug:
     # msg: "'{{ kind_spark_cluster_controlplane.container.NetworkSettings.Networks.kind_network.IPAddress }} Kind cluster Control Plane IP"
     msg: "'{{ ingress_nginx.resources[0].status.loadBalancer.ingress[0].ip }}' is the load balancer ip"
 
-
 - set_fact:
     ingress_loadbalancer_ip_address: "{{ ingress_nginx.resources[0].status.loadBalancer.ingress[0].ip }}"
-
 
 - name: Set Load balancer Ingress to IP - {{ ingress_loadbalancer_ip_address }}
   ansible.builtin.shell: |

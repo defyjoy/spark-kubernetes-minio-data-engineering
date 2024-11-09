@@ -44,10 +44,16 @@
     name: spark-kubernetes-minio-data-engineering-control-plane
   register: kind_spark_cluster_controlplane
 
+
 ## DEBUG INFO ON NETWORK INFORMATION
-- name: Print network information about spark container
+- name: DEBUG CONTAINER
   debug:
-    msg: "'{{ kind_spark_cluster_controlplane.container.NetworkSettings.Networks.kind_network.IPAddress }} Kind cluster Control Plane IP"
+    msg: "{{ kind_spark_cluster_controlplane.container}}"
+
+## DEBUG INFO ON NETWORK INFORMATION
+- name: Print network container information for running cluster
+  debug:
+    msg: "'{{ kind_spark_cluster_controlplane.container.NetworkSettings.Networks.kind_network.IPAddress }}'' Kind cluster Control Plane IP"
 
 ## REGISTER SPARK KIND CLUSTER CONTROL PLANE IP
 - set_fact:

@@ -14,7 +14,7 @@
     file: install_kind.yaml
 
 # INSTALL AND CONFIGURE ARGOCD
-- name: Configure ArgoCD
+- name: Install ArgoCD
   ansible.builtin.import_tasks:
     file: install_argocd.yaml
 
