@@ -30,6 +30,8 @@
     wait: yes
     wait_sleep: 10
     wait_timeout: 20
+    field_selectors:
+      - status.phase=Running
   register: pod_list
   # ignore_errors: true
 
