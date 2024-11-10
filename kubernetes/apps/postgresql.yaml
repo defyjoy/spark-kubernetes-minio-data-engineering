@@ -13,7 +13,7 @@ spec:
   sources:
   - chart: postgresql
     repoURL: registry-1.docker.io/bitnamicharts  # note: the oci:// syntax is not included.
-    targetRevision: 17.0.0
+    targetRevision: 16.1.2
     helm:
       valueFiles:
         - $argo/kubernetes/apps/postgresql.values.yaml
