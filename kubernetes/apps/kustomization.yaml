@@ -13,3 +13,4 @@ resources:
 - minio.yaml
 - postgresql.yaml
 - keycloak.yaml
+- hashicorp-vault.yaml
