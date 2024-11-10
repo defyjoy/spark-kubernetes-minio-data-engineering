@@ -13,7 +13,7 @@ spec:
   sources:
   - chart: localstack
     repoURL:  https://helm.localstack.cloud  # note: the oci:// syntax is not included.
-    targetRevision: 16.1.2
+    targetRevision: 0.6.17
     # helm:
     #   valueFiles:
     #     - $argo/kubernetes/manifests/postgresql/postgresql.values.yaml
