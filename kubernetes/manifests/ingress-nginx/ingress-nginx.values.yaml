@@ -1,3 +1,10 @@
 tcp: 
   5432: "postgresql/postgresql:5432"
 #  "8080": "default/example-tcp-svc:9000"
+
+
+controller:
+  service:
+    nodePorts:
+      tcp:
+        5432: 5432
