@@ -17,7 +17,7 @@ spec:
     helm:
       valueFiles:
         - $argo/kubernetes/apps/postgresql.values.yaml
-  - repoUrl: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
+  - repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
     targetRevision: main
     ref: argo
   syncPolicy:
