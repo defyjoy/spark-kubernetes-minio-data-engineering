@@ -14,12 +14,12 @@ spec:
   - chart: localstack
     repoURL:  https://helm.localstack.cloud  # note: the oci:// syntax is not included.
     targetRevision: 0.6.17
-    # helm:
-    #   valueFiles:
-    #     - $argo/kubernetes/manifests/postgresql/postgresql.values.yaml
-  # - repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
-  #   targetRevision: main
-  #   ref: argo
+    helm:
+      valueFiles:
+        - $argo/kubernetes/manifests/aws-localstack/localstack.values.yaml
+  - repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
+    targetRevision: main
+    ref: argo
   syncPolicy:
     retry:
       limit: 3 # number of failed sync attempt retries; unlimited number of attempts if less than 0
