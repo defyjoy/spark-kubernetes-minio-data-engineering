@@ -1,6 +1,6 @@
 
 ## CHECK IF ARGOCD EXISTS OR NOT AND REGISTER INTO OUTPUT FOR pod_list
-- name: Check if ArgoCD Exists
+- name: CHECK IF ARGOCD EXISTS OR NOT AND REGISTER INTO OUTPUT FOR pod_list
   kubernetes.core.k8s_info:
     api_version: v1
     kind: Pod
@@ -11,14 +11,14 @@
   register: pod_list
   ignore_errors: true
 
-## INSTAL ARGOCD WHEN ARGOCD DOES NOT EXIST OR IS NOT RUNNING
-- name: Install ArgoCD
+## INSTALL ARGOCD WHEN ARGOCD DOES NOT EXIST OR IS NOT RUNNING
+- name: INSTALL ARGOCD WHEN ARGOCD DOES NOT EXIST OR IS NOT RUNNING
   when: pod_list|json_query('resources[*].status.phase')|unique != ["Running"]
   ansible.builtin.shell:
     cmd: kustomize build manifests/argocd | kubectl apply -f -
 
 ## CHECK IF ARGOCD IS DEPLOYED OR NOT AND REGISTER INTO OUTPUT FOR pod_list
-- name: Check If ArgoCD is deployed
+- name: CHECK OR WAIT UNTIL ARGOCD IS UP
   kubernetes.core.k8s_info:
     api_version: v1
     kind: Pod
@@ -44,18 +44,19 @@
 #   ansible.builtin.shell: kubectl scale -n argocd deployment/argocd-server --replicas=0 && kubectl scale -n argocd deployment/argocd-server --replicas=1
 
 ## CHECK IF ARGOCD LOGIN IS SUCCESSFUL. IF FAILS THEN IGNORE ERROR
-- name: Check ArgoCD Login
+- name: CHECK IF ARGOCD LOGIN IS SUCCESSFUL
   ansible.builtin.shell: argocd login --port-forward --insecure --username admin --password {{ ARGOCD_NEW_PASSWORD }}
+  when: pod_list|json_query('resources[*].status.phase')|unique == ["Running"]
   register: argocd_login
   ignore_errors: true
 
 ## DEBUG INFO ON ARGOCD LOGIN IF SUCCESSFUL
-- name: Login to ArgoCD Succeeded?
+- name: DEBUG INFO ON ARGOCD LOGIN IF SUCCESSFUL
   debug:
     msg: "ArgoCD {{ 'Login Successful' if argocd_login.failed == false else 'Login Failed' }}"
 
 ## ARGOCD PASSWORD RESET USING SHELL SCRIPT scripts/argocd.sh
-- name: ArgoCD Password Reset
+- name: ARGOCD PASSWORD RESET USING SHELL SCRIPT scripts/argocd.sh
   when: argocd_login.failed
   ansible.builtin.shell: scripts/argocd.sh
   environment:

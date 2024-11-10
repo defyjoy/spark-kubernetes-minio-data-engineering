@@ -6,7 +6,7 @@
     kind: Namespace
     state: present
 
-## INSTALL METALLB TO PROVIDER LOAD BALANCER IP
+## INSTALL METALLB TO PROVIDE LOAD BALANCER IP
 - name: Install Metallb
   ansible.builtin.shell: kustomize build manifests/metallb | kubectl apply -f -
 
@@ -16,6 +16,7 @@
     name: ingress-nginx
     repo_url: "{{ nginx_ingress_helm_chart_url }}" ## Look in vars folder
 
+## INSTALL NGINX INGRESS HELM CHART
 - name: Install Nginx Chart
   kubernetes.core.helm:
     name: ingress-nginx
