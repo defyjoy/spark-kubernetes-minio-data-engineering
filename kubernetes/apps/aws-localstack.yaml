@@ -9,7 +9,7 @@ spec:
   project: default
   destination:
     server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
-    namespace: postgresql
+    namespace: localstack
   sources:
   - chart: localstack
     repoURL:  https://helm.localstack.cloud  # note: the oci:// syntax is not included.
