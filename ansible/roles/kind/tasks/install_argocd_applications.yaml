@@ -14,4 +14,4 @@
 
 ## BOOTSTRAP ARGOCD APPLICATIONS
 - name: Bootstrap ArgoCD
-  ansible.builtin.shell: kubectl apply -f bootstrap/bootstrapper.yaml
+  ansible.builtin.shell: kustomize build bootstrap | kubectl apply -f -
