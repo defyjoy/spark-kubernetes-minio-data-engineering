@@ -7,4 +7,4 @@ controller:
   service:
     nodePorts:
       tcp:
-        5432: 5432
+        5432: 30153
