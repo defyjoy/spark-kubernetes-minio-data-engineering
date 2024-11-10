@@ -1,6 +1,10 @@
 auth:
-  existingSecret: ""
-  secretKeys:
-    adminPasswordKey: postgres-password
-    userPasswordKey: password
-    replicationPasswordKey: replication-password
+  postgresPassword: "admin@123"
+  username: "admin"
+  password: "admin@123"
+  database: "alembic-demo"
+  # existingSecret: ""
+  # secretKeys:
+  #   adminPasswordKey: postgres-password
+  #   userPasswordKey: password
+  #   replicationPasswordKey: replication-password

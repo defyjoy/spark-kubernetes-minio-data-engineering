@@ -8,4 +8,4 @@ helmCharts:
   version: v4.4.2
   releaseName: ingress-nginx
   namespace: ingress-nginx
-  # valuesFile: dev.values.yaml
+  valuesFile: ingress-nginx.values.yaml
