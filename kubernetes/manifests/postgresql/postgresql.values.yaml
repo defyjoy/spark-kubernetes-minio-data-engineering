@@ -1,7 +1,7 @@
 auth:
-  postgresPassword: "admin@123"
+  postgresPassword: "admin123"
   username: "admin"
-  password: "admin@123"
+  password: "admin123"
   database: "alembic-demo"
   # existingSecret: ""
   # secretKeys:
