@@ -13,4 +13,5 @@ resources:
 - minio.yaml
 - postgresql.yaml
 - keycloak.yaml
+- aws-localstack.yaml
 # - hashicorp-vault.yaml

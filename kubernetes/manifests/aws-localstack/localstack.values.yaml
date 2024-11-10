@@ -1,0 +1,12 @@
+ingress:
+  enabled: true
+  annotations: {}
+  ## @param ingress.ingressClassName Set the name of the class to use
+  ##
+  ingressClassName: nginx
+  hosts:
+    - host: localstack.172.18.0.252.nip.io
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  # tls: []
