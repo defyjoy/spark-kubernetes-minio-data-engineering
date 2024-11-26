@@ -24,7 +24,7 @@ spec:
               service:
                 name: argocd-server
                 port:
-                  number: 443
+                  number: 80
       host: 172.18.0.252.nip.io
   tls:
     - hosts:
