@@ -2,3 +2,7 @@ installCRDs: true
 
 cainjector:
   enabled: true
+
+global:
+  leaderElection:
+    namespace: cert-manager
