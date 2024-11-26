@@ -19,13 +19,6 @@ server:
     activeService: true
     hosts:
       - host: hashicorp-vault.172.18.0.252.nip.io
-        paths:
-        - path: /
-            backend:
-              service:
-                name: hashicorp-vault
-                port:
-                  number: https
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
     # - path: /*
