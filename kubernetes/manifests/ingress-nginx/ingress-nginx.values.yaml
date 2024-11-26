@@ -8,3 +8,8 @@ controller:
     nodePorts:
       tcp:
         5432: 30153
+
+    ipFamilyPolicy: PreferDualStack 
+    ipFamilies: 
+    - IPv6
+    - IPv4
