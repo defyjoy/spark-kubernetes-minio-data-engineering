@@ -1,4 +1,6 @@
 docker network create \
+  --ipv6 \
+  --subnet 2001:db8::/64 \
   --driver=bridge \
   --subnet=172.18.0.0/16 \
   --gateway=172.18.0.1 \
