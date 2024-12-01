@@ -11,9 +11,9 @@ spec:
   - chart: vault
     repoURL: https://helm.releases.hashicorp.com  # note: the oci:// syntax is not included.
     targetRevision: 0.29.0
-    helm:
-      valueFiles:
-        - $argo/kubernetes/manifests/hashicorp-vault/hashicorp-vault.values.yaml
+    # helm:
+    #   valueFiles:
+    #     - $argo/kubernetes/manifests/hashicorp-vault/hashicorp-vault.values.yaml
   - repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
     targetRevision: main
     ref: argo
