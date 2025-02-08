@@ -4,18 +4,47 @@ kind: Kustomization
 namespace: argocd
 
 resources:
+
+## GitOps
 - argocd.yaml
+
+## Ingress Controller
 - ingress-nginx.yaml
-- strimzi-kafka.yaml
+
+## Certificates 
 - cert-manager.yaml
-- spark.yaml
+
+## Load balancer
 - metallb.yaml
+
+## Storage
 - minio.yaml
+
+## Databases 
 - postgresql.yaml
+
+## Authentication and Authorization
 - keycloak.yaml
+
+## AWS
 - aws-localstack.yaml
+
+## Distributed processing 
+- spark.yaml
+
+## Messaging and Queueing 
 - rabbitmq.yaml
+- strimzi-kafka.yaml
+
+# CMS 
+- wordpress.yaml
+
+## Secret Management 
 - hashicorp-vault.yaml
+
+## DNS 
 - pihole.yaml
 - external-dns.yaml
-- wordpress.yaml
+
+## AI/ML
+- ollama.yaml

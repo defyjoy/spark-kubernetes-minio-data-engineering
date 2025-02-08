@@ -31,3 +31,7 @@ helm install rancher ./rancher-<VERSION>.tgz \
     --set systemDefaultRegistry=<REGISTRY.YOURDOMAIN.COM:PORT> \ # Set a default private registry to be used in Rancher
     --set useBundledSystemChart=true # Use the packaged Rancher system charts
 ```
+
+TODO - 
+
+- [Chatwoot](https://github.com/chatwoot/chatwoot?tab=readme-ov-file) - Chatwoot is an open-source, self-hosted customer engagement suite. Chatwoot lets you view and manage your customer data, communicate with them irrespective of which medium they use, and re-engage them based on their profile.
