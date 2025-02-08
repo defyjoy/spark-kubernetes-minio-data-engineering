@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-dns
+  name: ollama
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "1"
@@ -9,8 +9,8 @@ spec:
   project: default
   sources:
     - repoURL: https://otwld.github.io/ollama-helm/
-      chart: external-dns
-      targetRevision: 1.15.0
+      chart: ollama
+      targetRevision: ollama-1.4.1
       helm:
         valueFiles:
         - $argo/kubernetes/manifests/ollama/ollama.values.yaml
