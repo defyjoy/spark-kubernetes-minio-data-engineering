@@ -16,3 +16,5 @@ resources:
 - aws-localstack.yaml
 - rabbitmq.yaml
 - hashicorp-vault.yaml
+- pihole.yaml
+- external-dns.yaml
