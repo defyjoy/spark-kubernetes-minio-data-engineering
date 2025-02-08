@@ -3,11 +3,37 @@
 This infrastructure is setup on purely based on kind cluster and dns is managed by pihole.
 
 
+## PREPARATION 
+
+Create kind cluster
+
+```bash
+kind create cluster --config kind-config.yaml
+```
+
 ## INSTALLATION
 
 ```bash
 kustomize build kubernetes/manifests/argocd | kubectl apply -f -
 kustomize build kubernetes/bootstrap | kubectl apply -f -
+```
+
+## INSTALL KUBECTX
+
+```bash
+sudo apt install kubectx
+```
+
+## CHANGE NAMESPACE TO ARGOCD
+```bash
+kubens argocd
+```
+
+## RESET ARGOCD PASSWORD
+
+```bash
+export NEW_PASSWORD="admin@123"
+$ ./scripts/argocd.sh
 ```
 
 ## INSTALL RANCHER
