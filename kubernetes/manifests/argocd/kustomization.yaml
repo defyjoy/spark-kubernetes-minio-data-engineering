@@ -6,7 +6,7 @@ resources:
 # # - argocd-notification-secret.yaml
 # - argocd-dex-external-secrets.yaml
 - namespace.yaml
-- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.12.3
+- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.14.2
 - ingress.yaml
 
 
