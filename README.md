@@ -39,3 +39,9 @@ kustomize build kubernetes/bootstrap | kubectl apply -f -
 - [Chatwoot](https://github.com/chatwoot/chatwoot?tab=readme-ov-file) - Chatwoot is an open-source, self-hosted customer engagement suite. Chatwoot lets you view and manage your customer data, communicate with them irrespective of which medium they use, and re-engage them based on their profile.
 
 - [Open-webui](https://github.com/open-webui/open-webui)  - Open WebUI is an [extensible](https://docs.openwebui.com/features/plugin/), feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline. It supports various LLM runners like Ollama and OpenAI-compatible APIs, with built-in inference engine for RAG, making it a powerful AI deployment solution.
+
+
+
+# TREMENDOUS LIST OF TODO 
+
+- [Bitnami charts universe](https://github.com/bitnami/charts)
