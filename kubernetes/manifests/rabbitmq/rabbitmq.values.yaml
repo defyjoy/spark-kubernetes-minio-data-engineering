@@ -6,4 +6,4 @@ ingress:
   enabled: true
   ingressClassName: nginx
   path: /
-  hostnamne: rabbitmq.jr.homelab
+  hostname: rabbitmq.jr.homelab
