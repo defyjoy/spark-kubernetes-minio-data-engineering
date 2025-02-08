@@ -18,3 +18,4 @@ resources:
 - hashicorp-vault.yaml
 - pihole.yaml
 - external-dns.yaml
+- wordpress.yaml

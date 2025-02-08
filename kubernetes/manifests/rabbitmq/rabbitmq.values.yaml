@@ -6,4 +6,4 @@ ingress:
   enabled: true
   ingressClassName: nginx
   path: /
-  hostname: rabbitmq.jr.homelab
+  hostname: rabbitmq.jr.homelab  # this is pihole dns
