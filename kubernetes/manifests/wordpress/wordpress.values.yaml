@@ -11,3 +11,6 @@ ingress:
 secondaryIngress:
   enabled: false
   ingressClassName: nginx
+
+mariadb:
+  enabled: true
