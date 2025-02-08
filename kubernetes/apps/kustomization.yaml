@@ -48,3 +48,6 @@ resources:
 
 ## AI/ML
 - ollama.yaml
+
+## Container Registry
+- harbor.yaml
