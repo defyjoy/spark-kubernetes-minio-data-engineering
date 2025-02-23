@@ -7,4 +7,4 @@ docker network create \
   -o "com.docker.network.bridge.enable_ip_masquerade"="true" \
   -o "com.docker.network.driver.mtu"="65535" \
   kind_network
-  # --ip-range=172.18.5.0/24 \
+  # --ip-range=172.18.5.0/24 \ 
