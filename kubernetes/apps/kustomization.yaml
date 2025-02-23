@@ -50,5 +50,5 @@ resources:
 - ollama.yaml
 
 ## Container Registry
-- harbor.yaml
+# - harbor.yaml
 
