@@ -5,9 +5,9 @@ server:
   ingress:
     enabled: true
     annotations: 
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      cert-manager.io/cluster-issuer: selfsigned-issuer
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      # cert-manager.io/cluster-issuer: selfsigned-issuer
     ingressClassName: "nginx"
 
     # As of Kubernetes 1.19, all Ingress Paths must have a pathType configured. The default value below should be sufficient in most cases.
@@ -18,7 +18,7 @@ server:
     # configure the ingress to point to the Vault active service.
     activeService: true
     hosts:
-      - host: hashicorp-vault.172.18.0.252.nip.io
+      - host: vault.jr.homelab # this is pihole dns
     ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
     extraPaths: []
     # - path: /*
@@ -30,7 +30,7 @@ server:
     tls: 
      - secretName: hashicorp-vault-tls
        hosts:
-         - hashicorp-vault.172.18.0.252.nip.io
+         - vault.jr.homelab
 
 ui:
   enabled: true

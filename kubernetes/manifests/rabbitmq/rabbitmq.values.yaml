@@ -1,0 +1,9 @@
+auth:
+  username: "user"
+  password: "password@123"
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  path: /
+  hostname: rabbitmq.jr.homelab  # this is pihole dns

@@ -1,0 +1,16 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: wordpress.jr.homelab
+
+
+## Configure second ingress resource that allows you to access the WordPress installation
+## This may be used to secure /wp-admin behind authentication or IP restrictions
+## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+##
+secondaryIngress:
+  enabled: false
+  ingressClassName: nginx
+
+mariadb:
+  enabled: true

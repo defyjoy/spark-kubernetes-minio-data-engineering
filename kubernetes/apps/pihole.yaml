@@ -13,12 +13,12 @@ spec:
       targetRevision: 2.23.0
       helm:
         valueFiles:
-        - $argo/pihole/values.yaml
+        - $argo/kubernetes/manifests/pihole/values.yaml
     - repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
       ref: argo
   destination:
     server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
-    namespace: argocd
+    namespace: pihole
   syncPolicy:
     retry:
       limit: 3 # number of failed sync attempt retries; unlimited number of attempts if less than 0

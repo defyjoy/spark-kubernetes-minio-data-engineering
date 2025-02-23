@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
+    namespace: wordpress
+  sources:
+  - chart: wordpress
+    repoURL: registry-1.docker.io/bitnamicharts  # note: the oci:// syntax is not included.
+    targetRevision: 24.1.9
+    helm:
+      valueFiles:
+        - $argo/kubernetes/manifests/wordpress/wordpress.values.yaml
+  - repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
+    targetRevision: main
+    ref: argo
+  syncPolicy:
+    retry:
+      limit: 3 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      backoff:
+        duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        factor: 2 # a factor to multiply the base duration after each failed retry
+        maxDuration: 5s # the maximum amount of time allowed for the backoff strategy
+    syncOptions:
+    - CreateNamespace=true
+    - FailOnSharedResource=true
+    - ServerSideApply=true
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+    - group: "apps"
+      kind: "StatefulSet"
+      jqPathExpressions:
+        - ".spec.volumeClaimTemplates[].apiVersion"
+        - ".spec.volumeClaimTemplates[].kind"

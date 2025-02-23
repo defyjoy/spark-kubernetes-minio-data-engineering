@@ -35,7 +35,7 @@ spec:
                 name: argocd-server
                 port:
                   number: 80
-      host: argocd.jr.homelab
+      host: argocd.jr.homelab  # this is pihole dns
   tls:
     - hosts:
         - 172.18.0.7.nip.io

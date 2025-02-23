@@ -7,10 +7,10 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
-  source:
-    repoURL: https://github.com/defyjoy/spark-kubernetes-minio-data-engineering.git
-    targetRevision: main
-    path: kubernetes/manifests/ingress-nginx # bootstrap/overlays/dev
+  sources:
+  - chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx  # note: the oci:// syntax is not included.
+    targetRevision: 4.12.0
   destination:
     server: https://kubernetes.default.svc # gke control plane url.Also, argocd can connect to cluster externally .So you can mention multiple clusters like - https://x.x.x.x (gke control plane ip)
     namespace: ingress-nginx
