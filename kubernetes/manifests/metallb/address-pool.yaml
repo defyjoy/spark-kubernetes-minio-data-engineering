@@ -5,6 +5,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 172.18.0.255/30
+  - 192.168.68.255/30
+  # - 172.18.0.255/30
   - fc00:f853:ccd:e799::/124
   autoAssign: true
