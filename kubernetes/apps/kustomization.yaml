@@ -12,42 +12,42 @@ resources:
 - ingress-nginx.yaml
 
 ## Certificates 
-- cert-manager.yaml
+# - cert-manager.yaml
 
 ## Load balancer
 - metallb.yaml
 
 ## Storage
-- minio.yaml
+# - minio.yaml
 
 ## Databases 
-- postgresql.yaml
+# - postgresql.yaml
 
 ## Authentication and Authorization
-- keycloak.yaml
+# - keycloak.yaml
 
 ## AWS
-- aws-localstack.yaml
+# - aws-localstack.yaml
 
 ## Distributed processing 
-- spark.yaml
+# - spark.yaml
 
 ## Messaging and Queueing 
-- rabbitmq.yaml
-- strimzi-kafka.yaml
+# - rabbitmq.yaml
+# - strimzi-kafka.yaml
 
 # CMS 
-- wordpress.yaml
+# - wordpress.yaml
 
 ## Secret Management 
-- hashicorp-vault.yaml
+# - hashicorp-vault.yaml
 
 ## DNS 
 - pihole.yaml
-- external-dns.yaml
+# - external-dns.yaml
 
 ## AI/ML
-- ollama.yaml
+# - ollama.yaml
 
 ## Container Registry
 # - harbor.yaml
